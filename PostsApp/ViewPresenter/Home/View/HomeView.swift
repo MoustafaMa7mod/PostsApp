@@ -98,4 +98,19 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter?.navigateToDetailView(with: indexPath.row)
     }
+    
+    /// Detects when the user scrolls near the bottom of the table view and triggers pagination.
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y // Current vertical scroll position
+        let contentHeight = scrollView.contentSize.height // Total content height
+        let tableViewHeight = scrollView.frame.size.height // Visible table view height
+        
+        // Check if the user has scrolled close to the bottom (100 points before the end)
+        if offsetY > contentHeight - tableViewHeight - 100 {
+            Task(priority: .background) {
+                await presenter?.loadMoreData()
+            }
+            
+        }
+    }
 }
