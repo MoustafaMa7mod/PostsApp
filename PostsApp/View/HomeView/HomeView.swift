@@ -19,7 +19,7 @@ class HomeView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        loadData()
+//        loadData()
     }
 }
 
@@ -43,21 +43,33 @@ extension HomeView {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(cellType: HomeViewCell.self)
+        tableView.tableFooterView = UIView()
     }
 }
 
 extension HomeView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        return UITableViewCell()
+        guard let cell: HomeViewCell = tableView.dequeueReusableCell() else {
+            return UITableViewCell()
+        }
+        
+        cell.titleLabel.text = "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+        
+        cell.descriptionLabel.text = "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+        
+        return cell
     }
 }

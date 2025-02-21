@@ -28,7 +28,7 @@ class HomeRouter {
         let remote = PostsRemoteAPI(networkService: networkService)
         let interactor = GetPostsInteractor(remote: remote)
         let presenter = GetPostsPresenter(interactor: interactor)
-        let homeView = HomeView()
+        let homeView = HomeView(nibName: HomeView.nibName, bundle: nil)
         homeView.presenter = presenter
         navigationController = UINavigationController(rootViewController: homeView)
         window.rootViewController = navigationController
