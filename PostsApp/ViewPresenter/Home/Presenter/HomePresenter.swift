@@ -10,11 +10,13 @@ import UIKit
 protocol HomePresenterProtocol {
     
     var view: HomeViewProtocol? { get set }
-    var interactor: GetPostsInteractorProtocol? { get set }
-    
+    var interactor: GetPostsInteractorProtocol { get set }
+    var router: Router? { get set }
+
     func viewDidLoad()
     func numberOfRowsInSection() -> Int
     func itemForCell(cell: HomeViewCellProtocol, at indexPath: Int)
+    func navigateToDetailView(with indexPath: Int)
 }
 
 class HomePresenter: HomePresenterProtocol {
@@ -23,8 +25,19 @@ class HomePresenter: HomePresenterProtocol {
     private var posts: [PostModel] = []
     
     // MARK: - Properties
-    var view: HomeViewProtocol?
-    var interactor: GetPostsInteractorProtocol?
+    weak var view: HomeViewProtocol?
+    weak var router: Router?
+    var interactor: GetPostsInteractorProtocol
+    
+    init(
+        view: HomeViewProtocol? = nil,
+        router: Router? = nil,
+        interactor: GetPostsInteractorProtocol
+    ) {
+        self.view = view
+        self.router = router
+        self.interactor = interactor
+    }
     
     // MARK: - Get Posts Presenter Protocol Functions
     func viewDidLoad() {
@@ -34,7 +47,7 @@ class HomePresenter: HomePresenterProtocol {
         Task(priority: .background) {
             
             do {
-                posts = try await fetchPosts()
+                posts = try await interactor.fetchPosts()
                 await view?.loadTableView()
             } catch {
                 print("Failed to fetch posts: \(error.localizedDescription)")
@@ -51,14 +64,8 @@ class HomePresenter: HomePresenterProtocol {
         cell.display(title: model.title)
         cell.display(description: model.description)
     }
-}
-
-// MARK: - Private Functions
-
-extension HomePresenter {
     
-    
-    private func fetchPosts() async throws -> [PostModel] {
-        try await interactor?.fetchPosts() ?? []
+    func navigateToDetailView(with indexPath: Int) {
+        router?.navigateToDetailView(with: posts[indexPath])
     }
 }

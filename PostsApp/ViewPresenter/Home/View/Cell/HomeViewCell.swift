@@ -22,6 +22,7 @@ class HomeViewCell: UITableViewCell, HomeViewCellProtocol {
     // MARK: - Methods
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
     }
     
     // MARK: - Home View Cell Protocol

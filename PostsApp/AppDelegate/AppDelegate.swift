@@ -12,17 +12,26 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var router: Router?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         if let window {
-            let homeView = HomeRouter.createHomeView()
-            let navigationController = UINavigationController(rootViewController: homeView)
-            window.rootViewController = navigationController
-            window.makeKeyAndVisible()
+            
+            router = Router(
+                window: window,
+                navigationController: UINavigationController()
+            )
+            
+            router?.createHomeView()
         }
         return true
     }
 }
+
+
+//navigationController = UINavigationController(rootViewController: homeView)
+//window.rootViewController = navigationController
+//window.makeKeyAndVisible()
 

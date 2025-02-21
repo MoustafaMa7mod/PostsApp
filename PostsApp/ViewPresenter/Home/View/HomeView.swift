@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol HomeViewProtocol {
+protocol HomeViewProtocol: AnyObject {
     
     var presenter: HomePresenterProtocol? { get set }
     
@@ -93,5 +93,9 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
         presenter?.itemForCell(cell: cell, at: indexPath.row)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.navigateToDetailView(with: indexPath.row)
     }
 }
