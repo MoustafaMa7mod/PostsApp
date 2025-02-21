@@ -27,6 +27,7 @@ class DetailsView: UIViewController, DetailsViewProtocol {
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = false
         presenter?.viewDidLoad()
     }
 }

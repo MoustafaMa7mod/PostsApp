@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             router = Router(
                 window: window,
-                navigationController: UINavigationController()
+                navigationController: CustomNavigationController()
             )
             
             router?.createHomeView()

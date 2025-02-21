@@ -15,7 +15,7 @@ class Router {
     private var navigationController: UINavigationController
     
     // MARK: - Methods
-    init(window: UIWindow, navigationController: UINavigationController) {
+    init(window: UIWindow, navigationController: CustomNavigationController) {
         self.window = window
         self.navigationController = navigationController
     }
@@ -34,7 +34,7 @@ class Router {
             interactor: interactor
         )
         homeView.presenter = presenter
-        navigationController = UINavigationController(rootViewController: homeView)
+        navigationController = CustomNavigationController(rootViewController: homeView)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }
