@@ -7,11 +7,11 @@
 
 import NetworkLayer
 
-protocol PostsRemoteAPI {
+protocol PostsRemoteAPIProtocol {
     func fetchPosts() async throws -> [PostDataModel]
 }
 
-class DefaultPostsRemoteAPI: PostsRemoteAPI {
+class PostsRemoteAPI: PostsRemoteAPIProtocol {
     
     // MARK: - Properties
     private var networkService: NetworkService
