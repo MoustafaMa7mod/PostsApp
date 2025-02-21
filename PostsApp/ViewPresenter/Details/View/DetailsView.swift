@@ -7,18 +7,38 @@
 
 import UIKit
 
-protocol DetailsViewwProtocol: AnyObject {
+protocol DetailsViewProtocol: AnyObject {
     
     var presenter: DetailsPresenterProtocol? { get set }
+    
+    func showTitle(_ title: String)
+    func showDescription(_ description: String)
 }
 
-class DetailsView: UIViewController, DetailsViewwProtocol {
+class DetailsView: UIViewController, DetailsViewProtocol {
 
+    // MARK: - Outlets
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
+    
+    // MARK: - Properties
     var presenter: DetailsPresenterProtocol?
     
+    // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.viewDidLoad()
+    }
+}
 
-        // Do any additional setup after loading the view.
+// MARK: - Details View Protocol
+extension DetailsView {
+    
+    func showTitle(_ title: String) {
+        titleLabel.text = title
+    }
+    
+    func showDescription(_ description: String) {
+        descriptionLabel.text = description
     }
 }

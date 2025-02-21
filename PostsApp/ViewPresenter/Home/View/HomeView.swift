@@ -18,7 +18,7 @@ protocol HomeViewProtocol: AnyObject {
 class HomeView: UIViewController {
 
     // MARK: - Outlets
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     
     // MARK: - Properties
     var presenter: HomePresenterProtocol?

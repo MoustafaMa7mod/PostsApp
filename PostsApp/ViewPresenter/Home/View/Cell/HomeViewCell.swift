@@ -15,8 +15,8 @@ protocol HomeViewCellProtocol {
 class HomeViewCell: UITableViewCell, HomeViewCellProtocol {
 
     // MARK: - Outlets
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
     
     
     // MARK: - Methods

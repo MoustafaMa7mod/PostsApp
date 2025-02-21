@@ -41,8 +41,8 @@ class Router {
     
     func navigateToDetailView(with post: PostModel) {
         
-        let presenter = DetailsPresenter(post: post)
         let detailsView = DetailsView()
+        let presenter = DetailsPresenter(view: detailsView,  post: post)
         presenter.view = detailsView
         detailsView.presenter = presenter
         navigationController.pushViewController(detailsView, animated: true)
