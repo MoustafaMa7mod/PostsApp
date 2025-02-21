@@ -17,7 +17,7 @@ public class NetworkService {
     
     public init(
         session: URLSessionProtocol = URLSession.shared,
-        baseURL: String = ""
+        baseURL: String
     ) {
         self.session = session
         self.baseURL = baseURL
@@ -25,12 +25,12 @@ public class NetworkService {
     
     /// Fetches and decodes JSON data from a given URL string.
     ///
-    /// - Parameter urlString: The URL string of the API endpoint.
+    /// - Parameter path: The URL string of the API endpoint.
     /// - Returns: A decoded object of the specified generic type `T` (must conform to `Decodable`).
     /// - Throws: `APIError` in case of an invalid URL, request failure, invalid response, or decoding error.
     /// 
-    public func fetchData<T: Decodable>(query: String) async throws -> T {
-        let urlValue = "\(baseURL)\(query)"
+    public func fetchData<T: Decodable>(path: String) async throws -> T {
+        let urlValue = "\(baseURL)\(path)"
         
         guard let url = URL(string: "\(urlValue)") else {
             throw APIError.invalidURL

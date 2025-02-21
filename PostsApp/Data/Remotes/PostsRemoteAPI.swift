@@ -23,7 +23,9 @@ class PostsRemoteAPI: PostsRemoteAPIProtocol {
     
     func fetchPosts() async throws -> [PostDataModel] {
         
-        let result: [PostDataModel] = try await networkService.fetchData(query: "")
+        let result: [PostDataModel] = try await networkService.fetchData(
+            path: Constants.Paths.posts
+        )
         
         return result
     }
