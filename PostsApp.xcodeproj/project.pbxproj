@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		064DE72C2D68CE8600C87907 /* NetworkLayer in Frameworks */ = {isa = PBXBuildFile; productRef = 064DE72B2D68CE8600C87907 /* NetworkLayer */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		0651320B2D68C05A008823A3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		064DE7292D68CE7000C87907 /* NetworkLayer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkLayer; sourceTree = "<group>"; };
 		065131F12D68C059008823A3 /* PostsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0651320A2D68C05A008823A3 /* PostsAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PostsAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		065132142D68C05A008823A3 /* PostsAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PostsAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				064DE72C2D68CE8600C87907 /* NetworkLayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,12 +91,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		064DE72A2D68CE8600C87907 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		065131E82D68C059008823A3 = {
 			isa = PBXGroup;
 			children = (
+				064DE7292D68CE7000C87907 /* NetworkLayer */,
 				065131F32D68C059008823A3 /* PostsApp */,
 				0651320D2D68C05A008823A3 /* PostsAppTests */,
 				065132172D68C05A008823A3 /* PostsAppUITests */,
+				064DE72A2D68CE8600C87907 /* Frameworks */,
 				065131F22D68C059008823A3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -125,6 +140,7 @@
 			);
 			name = PostsApp;
 			packageProductDependencies = (
+				064DE72B2D68CE8600C87907 /* NetworkLayer */,
 			);
 			productName = PostsApp;
 			productReference = 065131F12D68C059008823A3 /* PostsApp.app */;
@@ -563,6 +579,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		064DE72B2D68CE8600C87907 /* NetworkLayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NetworkLayer;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 065131E92D68C059008823A3 /* Project object */;
 }
