@@ -11,4 +11,11 @@ struct PostDataModel: Codable {
     let id: Int?
     let title: String?
     let body: String?
+    
+    func toEntity() -> PostModel {
+        PostModel(
+            title: title ?? "",
+            description: body ?? ""
+        )
+    }
 }

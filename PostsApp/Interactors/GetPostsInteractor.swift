@@ -6,7 +6,7 @@
 //
 
 protocol GetPostsInteractorProtocol {
-    func fetchPosts() async throws -> [PostDataModel]
+    func fetchPosts() async throws -> [PostModel]
 }
 
 class GetPostsInteractor: GetPostsInteractorProtocol {
@@ -19,7 +19,9 @@ class GetPostsInteractor: GetPostsInteractorProtocol {
         self.remote = remote
     }
     
-    func fetchPosts() async throws -> [PostDataModel] {
-        try await remote.fetchPosts()
+    func fetchPosts() async throws -> [PostModel] {
+        let result = try await remote.fetchPosts()
+        
+        return result.map { $0.toEntity() }
     }
 }

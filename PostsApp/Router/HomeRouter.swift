@@ -9,29 +9,21 @@ import NetworkLayer
 import UIKit
 
 class HomeRouter {
-    
-    // MARK: - Properties
-    private var window: UIWindow
-    private var navigationController: UINavigationController
-    
-    // MARK: - Methods
-    init(window: UIWindow, navigationController: UINavigationController) {
-        self.window = window
-        self.navigationController = navigationController
-    }
-    
-    func createHomeView() {
+        
+    static func createHomeView() -> HomeView {
         
         let networkService = NetworkService(
             baseURL: ConfigurationManager.shared.baseURL
         )
+        
         let remote = PostsRemoteAPI(networkService: networkService)
         let interactor = GetPostsInteractor(remote: remote)
-        let presenter = GetPostsPresenter(interactor: interactor)
+        let presenter = HomePresenter()
         let homeView = HomeView(nibName: HomeView.nibName, bundle: nil)
+        presenter.interactor = interactor
+        presenter.view = homeView
         homeView.presenter = presenter
-        navigationController = UINavigationController(rootViewController: homeView)
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
+        
+        return homeView
     }
 }

@@ -22,7 +22,6 @@ class HomeViewCell: UITableViewCell, HomeViewCellProtocol {
     // MARK: - Methods
     override func awakeFromNib() {
         super.awakeFromNib()
-//        descriptionLabel.numberOfLines = 0
     }
     
     // MARK: - Home View Cell Protocol

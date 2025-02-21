@@ -7,37 +7,40 @@
 
 import UIKit
 
+protocol HomeViewProtocol {
+    
+    var presenter: HomePresenterProtocol? { get set }
+    
+    func showLoading()
+    @MainActor func loadTableView()
+}
+
 class HomeView: UIViewController {
 
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Properties
-    var presenter: GetPostsPresenterProtocol?
+    var presenter: HomePresenterProtocol?
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Posts"
         setupTableView()
-//        loadData()
+        setupActivityIndicator()
+        presenter?.viewDidLoad()
     }
 }
 
 // MARK: - Private Methods
 extension HomeView {
-    
-    private func loadData() {
-        
-        Task(priority: .background) {
-            do {
-                let result = try await presenter?.fetchPosts()
-                
-                print("DEBUG: result \(result)")
-            } catch let error {
-                print("DEBUG: error \(error.localizedDescription)")
-            }
-        }
-    }
     
     private func setupTableView() {
         
@@ -48,6 +51,26 @@ extension HomeView {
         tableView.register(cellType: HomeViewCell.self)
         tableView.tableFooterView = UIView()
     }
+    
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.center = view.center
+    }
+}
+
+
+// MARK: - HomeViewProtocol
+extension HomeView: HomeViewProtocol {
+    
+    func showLoading() {
+        activityIndicator.startAnimating()
+    }
+    
+    @MainActor
+    func loadTableView() {
+        activityIndicator.stopAnimating()
+        tableView.reloadData()
+    }
 }
 
 extension HomeView: UITableViewDelegate, UITableViewDataSource {
@@ -57,18 +80,17 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        presenter?.numberOfRowsInSection() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell: HomeViewCell = tableView.dequeueReusableCell() else {
+            
             return UITableViewCell()
         }
         
-        cell.titleLabel.text = "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
-        
-        cell.descriptionLabel.text = "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+        presenter?.itemForCell(cell: cell, at: indexPath.row)
         
         return cell
     }
