@@ -24,6 +24,7 @@ class HomeView: UIViewController {
     // MARK: - Properties
     var presenter: HomePresenterProtocol?
     
+    private let refreshControl = UIRefreshControl()
     private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.hidesWhenStopped = true
@@ -36,6 +37,7 @@ class HomeView: UIViewController {
         title = "Posts"
         setupTableView()
         setupActivityIndicator()
+        setupRefreshControl()
         presenter?.viewDidLoad()
     }
     
@@ -62,6 +64,19 @@ extension HomeView {
         view.addSubview(activityIndicator)
         activityIndicator.center = view.center
     }
+    
+    private func setupRefreshControl() {
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(
+            self,
+            action: #selector(refreshData),
+            for: .valueChanged
+        )
+    }
+    
+    @objc private func refreshData() {
+        presenter?.viewDidLoad()
+    }
 }
 
 
@@ -75,6 +90,7 @@ extension HomeView: HomeViewProtocol {
     @MainActor
     func loadTableView() {
         activityIndicator.stopAnimating()
+        refreshControl.endRefreshing()
         tableView.reloadData()
     }
     
