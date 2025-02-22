@@ -13,6 +13,7 @@ protocol HomeViewProtocol: AnyObject {
     
     func showLoading()
     @MainActor func loadTableView()
+    @MainActor func showError(message: String)
 }
 
 class HomeView: UIViewController {
@@ -75,6 +76,12 @@ extension HomeView: HomeViewProtocol {
     func loadTableView() {
         activityIndicator.stopAnimating()
         tableView.reloadData()
+    }
+    
+    @MainActor
+    func showError(message: String) {
+        activityIndicator.stopAnimating()
+        showAlert(message: message)
     }
 }
 

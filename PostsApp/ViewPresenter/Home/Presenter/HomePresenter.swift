@@ -110,10 +110,7 @@ extension HomePresenter {
                 try await interactor.updatePosts()
             } catch {
                 isLoadMore = false
-//                await MainActor.run {
-//                    self.view?.hideLoading()
-//                }
-                print("Failed to fetch posts: \(error.localizedDescription)")
+                await view?.showError(message: error.localizedDescription)
             }
         }
     }
