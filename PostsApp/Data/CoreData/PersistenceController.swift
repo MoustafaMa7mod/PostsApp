@@ -48,7 +48,7 @@ public class PersistenceController {
         // Load persistent stores and handle potential errors.
         container.loadPersistentStores { (_, error) in
             if let error = error as NSError? {
-                Logger().error("Core Data store failed to load: \(error.localizedDescription)")
+                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
     }

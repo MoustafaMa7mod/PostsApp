@@ -10,8 +10,8 @@ import CoreData
 
 protocol PostsLocalProtocol {
     func fetchPosts() async -> [PostModel]
-    func save(item: PostModel) async -> Bool
-    func clearData() async -> Bool
+    func save(item: PostModel) async
+    func clearData() async
 }
 
 struct PostsLocal: PostsLocalProtocol {
@@ -45,10 +45,9 @@ struct PostsLocal: PostsLocalProtocol {
         return posts
     }
 
-    func save(item: PostModel) async -> Bool {
+    func save(item: PostModel) async {
         
         let context = persistenceController.container.newBackgroundContext()
-        var isSaved: Bool = false
         
         context.performAndWait {
             
@@ -60,22 +59,15 @@ struct PostsLocal: PostsLocalProtocol {
             
             do {
                 try context.save()
-                Logger().info("item saved")
-                isSaved = true
             } catch {
                 Logger().error("Error save Core Data: \(error.localizedDescription)")
-                isSaved = false
-                
             }
         }
-        
-        return isSaved
     }
     
-    func clearData() async -> Bool {
+    func clearData() async {
         
         let context = persistenceController.container.newBackgroundContext()
-        var isDeleted: Bool = false
         
         context.performAndWait {
             let fetchRequest: NSFetchRequest<NSFetchRequestResult> = PostEntity.fetchRequest()
@@ -84,14 +76,9 @@ struct PostsLocal: PostsLocalProtocol {
             do {
                 try context.execute(deleteRequest)
                 try context.save()
-                Logger().info("All items deleted successfully")
-                isDeleted = true
             } catch {
                 Logger().error("Error deleting all items: \(error.localizedDescription)")
-                isDeleted = false
             }
         }
-        
-        return isDeleted
     }
 }

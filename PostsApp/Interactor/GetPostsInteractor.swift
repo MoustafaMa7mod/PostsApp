@@ -5,8 +5,11 @@
 //  Created by Moustafa on 21/02/2025.
 //
 
+import OSLog
+
 protocol GetPostsInteractorProtocol {
     func fetchPosts() async throws -> [PostModel]
+    func updatePosts() async throws
 }
 
 class GetPostsInteractor: GetPostsInteractorProtocol {
@@ -22,8 +25,31 @@ class GetPostsInteractor: GetPostsInteractorProtocol {
     }
     
     func fetchPosts() async throws -> [PostModel] {
-        let result = try await remote.fetchPosts()
         
-        return result.map { $0.toEntity() }
+        let localPosts = await local.fetchPosts()
+        if !localPosts.isEmpty {
+            return localPosts
+        }
+        
+        let remotePosts = try await remote.fetchPosts().map { $0.toEntity() }
+
+        for item in remotePosts {
+            await local.save(item: item)
+        }
+        
+        return remotePosts
+    }
+    
+    func updatePosts() async {
+        do {
+            let result = try await remote.fetchPosts().map { $0.toEntity() }
+            await local.clearData()
+
+            for item in result {
+                await local.save(item: item)
+            }
+        } catch let error {
+            Logger().error("\(error.localizedDescription)")
+        }
     }
 }

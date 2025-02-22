@@ -107,6 +107,7 @@ extension HomePresenter {
                 posts = try await interactor.fetchPosts()
                 isLoadMore = false
                 await loadMoreData()
+                try await interactor.updatePosts()
             } catch {
                 isLoadMore = false
 //                await MainActor.run {
