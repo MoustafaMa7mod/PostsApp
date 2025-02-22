@@ -11,7 +11,7 @@ protocol HomePresenterProtocol {
     
     var view: HomeViewProtocol? { get set }
     var interactor: GetPostsInteractorProtocol { get set }
-    var router: Router? { get set }
+    var router: DetailsRouter? { get set }
 
     func viewDidLoad()
     func numberOfRowsInSection() -> Int
@@ -31,12 +31,12 @@ class HomePresenter: HomePresenterProtocol {
 
     // MARK: - Properties
     weak var view: HomeViewProtocol?
-    weak var router: Router?
+    var router: DetailsRouter?
     var interactor: GetPostsInteractorProtocol
     
     init(
         view: HomeViewProtocol? = nil,
-        router: Router? = nil,
+        router: DetailsRouter? = nil,
         interactor: GetPostsInteractorProtocol
     ) {
         self.view = view

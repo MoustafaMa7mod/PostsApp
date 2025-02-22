@@ -32,3 +32,10 @@ extension Constants {
         static let modelName = "PostsApp"
     }
 }
+
+extension Constants {
+    
+    public struct AnimationLogo {
+        static let logo = "AnimationLogo"
+    }
+}

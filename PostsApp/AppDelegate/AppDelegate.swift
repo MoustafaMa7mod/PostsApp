@@ -12,26 +12,20 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var router: Router?
+    var router: SplashRouter?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         if let window {
             
-            router = Router(
+            router = SplashRouter(
                 window: window,
                 navigationController: CustomNavigationController()
             )
             
-            router?.createHomeView()
+            router?.createSplashView()
         }
         return true
     }
 }
-
-
-//navigationController = UINavigationController(rootViewController: homeView)
-//window.rootViewController = navigationController
-//window.makeKeyAndVisible()
-
