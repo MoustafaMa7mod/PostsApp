@@ -12,6 +12,7 @@ protocol PostsLocalProtocol {
     func fetchPosts() async -> [PostModel]
     func save(item: PostModel) async
     func clearData() async
+    func updatePost(item: PostModel) async -> Bool
 }
 
 struct PostsLocal: PostsLocalProtocol {
@@ -55,7 +56,7 @@ struct PostsLocal: PostsLocalProtocol {
             entity.id = Int16(item.id)
             entity.title = item.title
             entity.postDescription = item.description
-            entity.like = item.isLiked
+            entity.like = item.like
             
             do {
                 try context.save()
@@ -63,6 +64,30 @@ struct PostsLocal: PostsLocalProtocol {
                 Logger().error("Error save Core Data: \(error.localizedDescription)")
             }
         }
+    }
+    
+    func updatePost(item: PostModel) async -> Bool {
+        
+        let context = persistenceController.container.newBackgroundContext()
+        var isUpdate: Bool = false
+        let fetchRequest = PostEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %d", item.id)
+        
+        context.performAndWait {
+            do {
+                let result = try context.fetch(fetchRequest)
+                if let post = result.first {
+                    post.like = item.like
+                    try context.save()
+                }
+                isUpdate = true
+            } catch {
+                Logger().error("Error update Core Data: \(error.localizedDescription)")
+                isUpdate = false
+            }
+        }
+        
+        return isUpdate
     }
     
     func clearData() async {

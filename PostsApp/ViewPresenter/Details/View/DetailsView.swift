@@ -11,8 +11,9 @@ protocol DetailsViewProtocol: AnyObject {
     
     var presenter: DetailsPresenterProtocol? { get set }
     
-    func showTitle(_ title: String)
-    func showDescription(_ description: String)
+    @MainActor func showPostData(_ post: PostModel)
+    @MainActor func updateNavigationIcon()
+    @MainActor func showError(message: String)
 }
 
 class DetailsView: UIViewController, DetailsViewProtocol {
@@ -32,14 +33,37 @@ class DetailsView: UIViewController, DetailsViewProtocol {
     }
 }
 
+// MARK: - Private Methods
+extension DetailsView {
+    
+    @objc private func likedAndDisLikedButtonTapped() {
+        presenter?.likedAndDisLikedTapped()
+    }
+}
+
 // MARK: - Details View Protocol
 extension DetailsView {
     
-    func showTitle(_ title: String) {
-        titleLabel.text = title
+    @MainActor
+    func showPostData(_ post: PostModel) {
+        titleLabel.text = post.title
+        descriptionLabel.text = post.description
     }
     
-    func showDescription(_ description: String) {
-        descriptionLabel.text = description
+    @MainActor
+    func updateNavigationIcon() {
+        let isLiked = presenter?.isLiked ?? false
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: isLiked ? "favorite" : "unfavorite"),
+            style: .plain,
+            target: self,
+            action: #selector(likedAndDisLikedButtonTapped)
+        )
+    }
+
+    @MainActor
+    func showError(message: String) {
+        showAlert(message: message)
     }
 }

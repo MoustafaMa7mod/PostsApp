@@ -17,7 +17,7 @@ struct PostDataModel: Codable {
             id: id ?? 0,
             title: title ?? "",
             description: body ?? "",
-            isLiked: false
+            like: false
         )
     }
 }
@@ -30,7 +30,7 @@ extension PostEntity {
             id: Int(id),
             title: title ?? "",
             description: postDescription ?? "",
-            isLiked: like
+            like: like
         )
     }
 }
