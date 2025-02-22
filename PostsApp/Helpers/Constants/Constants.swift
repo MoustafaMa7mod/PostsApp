@@ -25,3 +25,10 @@ extension Constants {
         static let posts = "posts"
     }
 }
+
+extension Constants {
+    
+    public struct CoreData {
+        static let modelName = "PostsApp"
+    }
+}

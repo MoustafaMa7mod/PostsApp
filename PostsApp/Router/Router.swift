@@ -26,7 +26,8 @@ class Router {
             baseURL: ConfigurationManager.shared.baseURL
         )
         let remote = PostsRemoteAPI(networkService: networkService)
-        let interactor = GetPostsInteractor(remote: remote)
+        let local = PostsLocal()
+        let interactor = GetPostsInteractor(remote: remote, local: local)
         let homeView = HomeView()
         let presenter = HomePresenter(
             view: homeView,

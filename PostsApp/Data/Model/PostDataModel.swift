@@ -14,8 +14,23 @@ struct PostDataModel: Codable {
     
     func toEntity() -> PostModel {
         PostModel(
+            id: id ?? 0,
             title: title ?? "",
-            description: body ?? ""
+            description: body ?? "",
+            isLiked: false
+        )
+    }
+}
+
+/// Maps the object from `WeatherInfoEntity` to `WeatherItem` .
+extension PostEntity {
+    
+    func toDTO() -> PostModel {
+        PostModel(
+            id: Int(id),
+            title: title ?? "",
+            description: postDescription ?? "",
+            isLiked: like
         )
     }
 }

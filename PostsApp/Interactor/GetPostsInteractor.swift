@@ -13,10 +13,12 @@ class GetPostsInteractor: GetPostsInteractorProtocol {
     
     // MARK: - Properties
     private let remote: PostsRemoteAPIProtocol
+    private let local: PostsLocal
     
     // MARK: - Methods
-    init(remote: PostsRemoteAPIProtocol) {
+    init(remote: PostsRemoteAPIProtocol, local: PostsLocal) {
         self.remote = remote
+        self.local = local
     }
     
     func fetchPosts() async throws -> [PostModel] {
