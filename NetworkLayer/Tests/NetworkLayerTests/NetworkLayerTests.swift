@@ -1,8 +1,8 @@
 //
-//  NetworkLayerTests.swift
+//  NetworkLayerTestss.swift
 //  NetworkLayer
 //
-//  Created by Mostafa Mahmoud on 12/02/2025.
+//  Created by Moustafa on 24/02/2025.
 //
 
 import XCTest
@@ -19,8 +19,7 @@ final class NetworkLayerTests: XCTestCase {
         mockSession = MockNetworkService()
         networkService = NetworkService(
             session: mockSession,
-            baseURL: "https://api.example.com/",
-            apiKey: "test_api_key"
+            baseURL: "https://api.example.com/"
         )
     }
     
@@ -43,10 +42,7 @@ final class NetworkLayerTests: XCTestCase {
             headerFields: nil
         )
 
-        let result: MockResponse = try await networkService.fetchData(
-            urlString: "test?",
-            query: "param=value"
-        )
+        let result: MockResponse = try await networkService.fetchData(path: "/posts")
 
         XCTAssertEqual(result, expectedResponse, "Decoded response should match expected")
     }
@@ -55,10 +51,7 @@ final class NetworkLayerTests: XCTestCase {
     func testFetchData_InvalidURL() async {
         
         do {
-            let _: MockResponse = try await networkService.fetchData(
-                urlString: "",
-                query: "param=value"
-            )
+            let _: MockResponse = try await networkService.fetchData(path: "/posts")
             
             XCTFail("Expected APIError.invalidURL but got success instead")
         } catch let error as APIError {
@@ -82,10 +75,7 @@ final class NetworkLayerTests: XCTestCase {
         )
 
         do {
-            let _: MockResponse = try await networkService.fetchData(
-                urlString: "test?",
-                query: "param=value"
-            )
+            let _: MockResponse = try await networkService.fetchData(path: "/posts")
             
             XCTFail("Expected invalidResponse error but got success")
         } catch {
@@ -108,10 +98,7 @@ final class NetworkLayerTests: XCTestCase {
         )
 
         do {
-            let _: MockResponse = try await networkService.fetchData(
-                urlString: "test?",
-                query: "param=value"
-            )
+            let _: MockResponse = try await networkService.fetchData(path: "/posts")
             
             XCTFail("Expected decodingError but got success")
         } catch {
