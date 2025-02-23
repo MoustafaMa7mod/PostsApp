@@ -21,7 +21,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		064DE7292D68CE7000C87907 /* NetworkLayer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkLayer; sourceTree = "<group>"; };
+		0634C30B2D6BE579005336E5 /* NetworkLayer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkLayer; sourceTree = "<group>"; };
 		065131F12D68C059008823A3 /* PostsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0651320A2D68C05A008823A3 /* PostsAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PostsAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -81,7 +81,7 @@
 		065131E82D68C059008823A3 = {
 			isa = PBXGroup;
 			children = (
-				064DE7292D68CE7000C87907 /* NetworkLayer */,
+				0634C30B2D6BE579005336E5 /* NetworkLayer */,
 				065131F32D68C059008823A3 /* PostsApp */,
 				0651320D2D68C05A008823A3 /* PostsAppTests */,
 				064DE72A2D68CE8600C87907 /* Frameworks */,
