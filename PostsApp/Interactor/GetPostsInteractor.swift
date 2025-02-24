@@ -16,10 +16,10 @@ class GetPostsInteractor: GetPostsInteractorProtocol {
     
     // MARK: - Properties
     private let remote: PostsRemoteAPIProtocol
-    private let local: PostsLocal
+    private let local: PostsLocalProtocol
     
     // MARK: - Methods
-    init(remote: PostsRemoteAPIProtocol, local: PostsLocal) {
+    init(remote: PostsRemoteAPIProtocol, local: PostsLocalProtocol) {
         self.remote = remote
         self.local = local
     }

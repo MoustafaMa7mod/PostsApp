@@ -14,10 +14,10 @@ protocol PostDetailsInteractorProtocol: AnyObject {
 class PostDetailsInteractor: PostDetailsInteractorProtocol {
     
     // MARK: - Properties
-    private let local: PostsLocal
+    private let local: PostsLocalProtocol
     
     // MARK: - Methods
-    init(local: PostsLocal) {
+    init(local: PostsLocalProtocol) {
         self.local = local
     }
     

@@ -81,5 +81,4 @@ final class PostsLocalTest: XCTestCase {
             like: false
         )
     }
-
 }
