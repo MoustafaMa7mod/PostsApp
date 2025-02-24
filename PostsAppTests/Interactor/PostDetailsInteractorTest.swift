@@ -47,7 +47,7 @@ final class PostDetailsInteractorTest: XCTestCase {
         
         // Then
         XCTAssertTrue(result)
-        XCTAssertTrue(mockLocal.updateCalled)
+        XCTAssertTrue(mockLocal.isUpdate)
         XCTAssertEqual(mockLocal.storedPosts.first?.like, true)
     }
 }

@@ -8,7 +8,11 @@
 import NetworkLayer
 import UIKit
 
-class DetailsRouter {
+protocol DetailsRouterProtocol {
+    func navigateToDetailView(with post: PostModel)
+}
+
+class DetailsRouter: DetailsRouterProtocol {
     
     // MARK: - Properties
     private weak var navigationController: CustomNavigationController?

@@ -37,7 +37,7 @@ final class GetPostsInteractorTests: XCTestCase {
         let posts = try await interactor.fetchPosts()
         
         XCTAssertEqual(posts.count, localPosts.count)
-        XCTAssertTrue(mockLocal.fetchPostsCalled)
+        XCTAssertTrue(mockLocal.isFetchPosts)
     }
     
     func test_fetchPosts_fetchesFromRemote_whenLocalIsEmpty() async throws {
@@ -46,14 +46,14 @@ final class GetPostsInteractorTests: XCTestCase {
         
         XCTAssertEqual(posts.count, 2)
         XCTAssertEqual(posts.first?.id, 1)
-        XCTAssertTrue(mockLocal.saveCalled)
+        XCTAssertTrue(mockLocal.isSave)
     }
     
     func test_updatePosts_clearsLocalAndSavesNewData() async {
         await interactor.updatePosts()
         
-        XCTAssertTrue(mockLocal.clearDataCalled)
-        XCTAssertTrue(mockLocal.saveCalled)
+        XCTAssertTrue(mockLocal.isClearData)
+        XCTAssertTrue(mockLocal.isSave)
         XCTAssertEqual(mockLocal.storedPosts.count, 2)
     }
     
@@ -66,7 +66,7 @@ final class GetPostsInteractorTests: XCTestCase {
             XCTFail("Expected an error but got success")
         } catch let error as APIError {
             XCTAssertEqual(error, .requestFailed)
-            XCTAssertFalse(mockLocal.saveCalled)
+            XCTAssertFalse(mockLocal.isSave)
         } catch {
             XCTFail("Unexpected error: \(error)")
         }

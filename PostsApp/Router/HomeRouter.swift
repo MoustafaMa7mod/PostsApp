@@ -8,14 +8,21 @@
 import NetworkLayer
 import UIKit
 
-class HomeRouter {
+protocol HomeRouterProtocol {
+    func navigateToHomeView()
+}
+
+class HomeRouter: HomeRouterProtocol {
     
     // MARK: - Properties
     private weak var window: UIWindow?
     private weak var navigationController: CustomNavigationController?
     
     // MARK: - Methods
-    init(window: UIWindow? = nil, navigationController: CustomNavigationController? = nil) {
+    init(
+        window: UIWindow? = nil,
+        navigationController: CustomNavigationController? = nil
+    ) {
         self.window = window
         self.navigationController = navigationController
     }

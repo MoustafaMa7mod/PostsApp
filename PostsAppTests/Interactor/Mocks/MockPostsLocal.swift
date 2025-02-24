@@ -10,32 +10,32 @@
 class MockPostsLocal: PostsLocalProtocol {
     
     var storedPosts: [PostModel] = []
-    var fetchPostsCalled = false
-    var saveCalled = false
-    var updateCalled = false
-    var clearDataCalled = false
+    var isFetchPosts = false
+    var isSave = false
+    var isUpdate = false
+    var isClearData = false
 
     func fetchPosts() async -> [PostModel] {
-        fetchPostsCalled = true
+        isFetchPosts = true
         return storedPosts
     }
 
     func save(item: PostModel) async {
-        saveCalled = true
+        isSave = true
         storedPosts.append(item)
     }
 
     func clearData() async {
-        clearDataCalled = true
+        isClearData = true
         storedPosts.removeAll()
     }
     
     func updatePost(item: PostsApp.PostModel) async -> Bool {
-        updateCalled = true
+        isUpdate = true
         
         if let index = storedPosts.firstIndex(where: { $0.id == item.id }) {
             storedPosts[index] = item
-            return updateCalled
+            return isUpdate
         }
         
         return false

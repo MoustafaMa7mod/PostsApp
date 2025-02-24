@@ -11,7 +11,7 @@ protocol HomePresenterProtocol {
     
     var view: HomeViewProtocol? { get set }
     var interactor: GetPostsInteractorProtocol { get set }
-    var router: DetailsRouter? { get set }
+    var router: DetailsRouterProtocol? { get set }
 
     func viewDidLoad()
     func numberOfRowsInSection() -> Int
@@ -23,20 +23,20 @@ protocol HomePresenterProtocol {
 class HomePresenter: HomePresenterProtocol {
     
     // MARK: - Private Properties
-    private var posts: [PostModel] = []
-    private var displayedPosts: [PostModel] = []
-    private let pageSize = 10
-    private var currentPage = 0
+    var posts: [PostModel] = []
+    var displayedPosts: [PostModel] = []
+    var currentPage = 0
     private var isLoadMore = false
+    private let pageSize = 10
 
     // MARK: - Properties
     weak var view: HomeViewProtocol?
-    var router: DetailsRouter?
+    var router: DetailsRouterProtocol?
     var interactor: GetPostsInteractorProtocol
     
     init(
         view: HomeViewProtocol? = nil,
-        router: DetailsRouter? = nil,
+        router: DetailsRouterProtocol? = nil,
         interactor: GetPostsInteractorProtocol
     ) {
         self.view = view
@@ -104,14 +104,18 @@ extension HomePresenter {
         
         Task(priority: .background) {
             do {
-                posts = try await interactor.fetchPosts()
-                isLoadMore = false
-                await loadMoreData()
-                try await interactor.updatePosts()
+                try await fetchPosts()
             } catch {
                 isLoadMore = false
                 await view?.showError(message: error.localizedDescription)
             }
         }
+    }
+    
+    func fetchPosts() async throws {
+        posts = try await interactor.fetchPosts()
+        isLoadMore = false
+        await loadMoreData()
+        try await interactor.updatePosts()
     }
 }

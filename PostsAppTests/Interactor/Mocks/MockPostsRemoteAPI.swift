@@ -10,9 +10,7 @@
 
 class MockPostsRemoteAPI: PostsRemoteAPIProtocol {
     
-    
     var error: APIError?
-
 
     func fetchPosts() async throws -> [PostDataModel] {
         

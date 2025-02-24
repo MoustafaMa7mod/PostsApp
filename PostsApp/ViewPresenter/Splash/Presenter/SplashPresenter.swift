@@ -17,7 +17,7 @@ class SplashPresenter: SplashPresenterProtocol {
    
     // MARK: - Properties
     weak var view: SplashViewProtocol?
-    var router: HomeRouter?
+    var router: HomeRouterProtocol?
     
     init(
         view: SplashViewProtocol? = nil,

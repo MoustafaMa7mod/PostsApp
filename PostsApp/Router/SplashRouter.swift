@@ -15,7 +15,10 @@ class SplashRouter {
     private weak var navigationController: CustomNavigationController?
     
     // MARK: - Methods
-    init(window: UIWindow? = nil, navigationController: CustomNavigationController? = nil) {
+    init(
+        window: UIWindow? = nil,
+        navigationController: CustomNavigationController? = nil
+    ) {
         self.window = window
         self.navigationController = navigationController
     }
